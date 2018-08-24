@@ -1,0 +1,71 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ps="clr-namespace:PSHost.Core.Powershell;assembly=PSHost.Core">
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ColorStyles.xaml" />
+        <ResourceDictionary Source="Converters.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="OutputTimestampTextBlockStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="0,0,5,0" />
+        <Setter Property="Opacity" Value="0.8" />
+        <Setter Property="Foreground" Value="{StaticResource DisabledForegroundColor}" />
+    </Style>
+
+    <Style x:Key="OutputTextBlockStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Foreground" Value="{Binding OutputStream, Converter={StaticResource OutputStreamToBrushConverter}}" />
+    </Style>
+
+    <Style x:Key="OutputStreamTextBlockStyle" BasedOn="{StaticResource OutputTextBlockStyle}" TargetType="{x:Type TextBlock}">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding OutputStream}" Value="{x:Static ps:OutputStream.Command}">
+                <Setter Property="Text" Value="CMD" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OutputStream}" Value="{x:Static ps:OutputStream.Debug}">
+                <Setter Property="Text" Value="DEBUG" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OutputStream}" Value="{x:Static ps:OutputStream.Verbose}">
+                <Setter Property="Text" Value="VERBOSE" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OutputStream}" Value="{x:Static ps:OutputStream.None}">
+                <Setter Property="Text" Value="INFO" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OutputStream}" Value="{x:Static ps:OutputStream.Warning}">
+                <Setter Property="Text" Value="WARN" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OutputStream}" Value="{x:Static ps:OutputStream.Error}">
+                <Setter Property="Text" Value="ERROR" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="OutputTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="FontFamily" Value="Consolas" />
+        <Setter Property="Foreground" Value="{Binding OutputStream, Converter={StaticResource OutputStreamToBrushConverter}}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding OutputStream}" Value="{x:Static ps:OutputStream.Command}">
+                <Setter Property="FontWeight" Value="Light" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OutputStream}" Value="{x:Static ps:OutputStream.Debug}">
+                <Setter Property="FontWeight" Value="Light" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OutputStream}" Value="{x:Static ps:OutputStream.Verbose}">
+                <Setter Property="FontWeight" Value="Light" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OutputStream}" Value="{x:Static ps:OutputStream.Warning}">
+                <Setter Property="FontWeight" Value="SemiBold" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding OutputStream}" Value="{x:Static ps:OutputStream.Error}">
+                <Setter Property="FontWeight" Value="SemiBold" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

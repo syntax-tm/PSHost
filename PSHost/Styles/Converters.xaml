@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+                    xmlns:ps="clr-namespace:PSHost.Core.Powershell;assembly=PSHost.Core">
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ColorStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <dxmvvm:BooleanToVisibilityConverter x:Key="BoolToVis" />
+    <dxmvvm:BooleanToVisibilityConverter x:Key="InverseBoolToVis" Inverse="True" />
+
+    <dxmvvm:BooleanNegationConverter x:Key="BooleanNegationConverter" />
+
+    <dxmvvm:ObjectToObjectConverter x:Key="OutputStreamToBrushConverter" DefaultSource="{x:Static ps:OutputStream.None}"
+                                    DefaultTarget="{StaticResource OutputColor}">
+        <dxmvvm:ObjectToObjectConverter.Map>
+            <dxmvvm:MapItem Source="{x:Static ps:OutputStream.Command}" Target="{StaticResource CommandOutputColor}" />
+            <dxmvvm:MapItem Source="{x:Static ps:OutputStream.Debug}" Target="{StaticResource DebugOutputColor}" />
+            <dxmvvm:MapItem Source="{x:Static ps:OutputStream.Verbose}" Target="{StaticResource VerboseOutputColor}" />
+            <dxmvvm:MapItem Source="{x:Static ps:OutputStream.None}" Target="{StaticResource OutputColor}" />
+            <dxmvvm:MapItem Source="{x:Static ps:OutputStream.Warning}" Target="{StaticResource WarningOutputColor}" />
+            <dxmvvm:MapItem Source="{x:Static ps:OutputStream.Error}" Target="{StaticResource ErrorOutputColor}" />
+        </dxmvvm:ObjectToObjectConverter.Map>
+    </dxmvvm:ObjectToObjectConverter>
+
+</ResourceDictionary>
